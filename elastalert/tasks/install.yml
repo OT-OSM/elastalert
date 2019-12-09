@@ -9,6 +9,7 @@
     - libffi-dev
     - libssl-dev
 
+      
 - name: Add elastalert group
   group:
     name: elastalert
@@ -39,6 +40,13 @@
     name:
       - setuptools>=11.3
     executable: pip3
+
+- name: Install the module using pip3
+  pip:
+    name:
+      - PyYAML
+    executable: pip3
+
 
 - name: execute python script to install module
   shell: python3 /opt/elastalert/setup.py install
