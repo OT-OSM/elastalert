@@ -1,5 +1,18 @@
 ---
-# defaults file for ea-role
-host_name: localhost
-port: 9300
-rule_dir: rules
+#
+#
+host_name: "localhost"
+port: "9300"
+rule_dir: "rules"
+
+
+elastalert_service_user_name: "elastalert"
+elastalert_service_group_name: "elastalert"
+
+
+elastalert_data_dir: "/opt"
+
+
+elastalert_version: "0.2.1"
+
+

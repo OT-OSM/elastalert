@@ -1,6 +1,9 @@
 ---
-# tasks file for ea-role
+# tasks file for elastalert
 
-- include_tasks: install.yml
+- name: Installing pre-requisities & packages on target Machine
+  include_tasks: install.yml
 
-- include_tasks: service.yml
+- name: Managing the service of elastalert in target machibe
+  include_tasks: service.yml
+

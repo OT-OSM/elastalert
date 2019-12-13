@@ -9,32 +9,6 @@
     - libffi-dev
     - libssl-dev
 
-      
-- name: Add elastalert group
-  group:
-    name: elastalert
-    state: present
-
-- name: Add elastalert user
-  user:
-    name: elastalert
-    group: elastalert
-    system: yes
-    state: present
-
-- name: ElastAlert repository most recent changes
-  git:
-    repo: https://github.com/Yelp/elastalert.git
-    dest: /opt/elastalert
-
-- name: Permission on elastalert directory
-  file:
-    path: /opt/elastalert
-    state: directory
-    recurse: yes
-    owner: elastalert
-    group: elastalert
-    
 - name: Install the module using pip3
   pip:
     name:
@@ -44,18 +18,63 @@
 - name: Install the module using pip3
   pip:
     name:
-      - PyYAML
-    executable: pip3
-
-
-- name: execute python script to install module
-  shell: python3 /opt/elastalert/setup.py install
-
-- name: module install
-  pip:
-    name:
       - setuptools>=5.0.0
     executable: pip3
 
+- name: Setting internal variables for convinience
+  set_fact:
+    base_url: "https://github.com/Yelp/elastalert/archive/v{{ elastalert_version }}.tar.gz"
+
+- name: "Unarchiving elastalert {{ elastalert_version }}"
+  unarchive:
+    src: "{{ base_url }}"
+    dest: "{{ installation_dir }}"
+    remote_src: yes
+  register: task_result
+  until: task_result is succeeded
+  retries: 5
+  delay: 5
+    
+- name: Creating system group for elastalert
+  group:
+    name: "{{ elastalert_service_group_name }}"
+    state: present
+
+- name: Creating system user for elastalert
+  user:
+    name: "{{ elastalert_service_user_name }}"
+    group: "{{ elastalert_service_group_name }}"
+    system: yes
+    state: present
+
+- name: Renaming elastalert downloaded directory for ease of use
+  copy:
+   src: "{{ installation_dir }}/elastalert-{{ elastalert_version }}/"
+   dest: "{{ installation_dir }}/elastalert"
+   owner: "{{ elastalert_service_user_name }}"
+   group: "{{ elastalert_service_group_name }}"
+   remote_src: yes
+ 
+- name: Permission on elastalert directory
+  file:
+    path: "{{ elastalert_data_dir }}"
+    state: directory
+    recurse: yes
+    owner: "{{ elastalert_service_user_name }}"
+    group: "{{ elastalert_service_group_name }}"
+    
+- name: Run setup python script
+  shell: "pip3 install -U PyYAML"
+  args:
+    executable: /bin/bash
+
+- name: Run setup python script
+  shell: "python3 /opt/elastalert/setup.py install"
+  args:
+    executable: /bin/bash
+
 - name: All specified module installation
-  shell: pip3 install -e /opt/elastalert/.
+  shell: "pip3 install -e /opt/elastalert/."
+  args:
+    executable: /bin/bash
+...

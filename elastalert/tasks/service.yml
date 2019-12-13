@@ -10,5 +10,5 @@
   template:
      src: elastalert-systemd.service.j2
      dest: /etc/systemd/system/elastalert.service
-     owner: elastalert
+     owner: "{{ elastalert_service_user_name }}"
      mode: 0755
