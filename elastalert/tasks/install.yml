@@ -9,16 +9,10 @@
     - libffi-dev
     - libssl-dev
 
-- name: Install the module using pip3
+- name: Install the setuptools 11.3 module using pip3
   pip:
     name:
       - setuptools>=11.3
-    executable: pip3
-
-- name: Install the module using pip3
-  pip:
-    name:
-      - setuptools>=5.0.0
     executable: pip3
 
 - name: Setting internal variables for convinience
