@@ -77,4 +77,5 @@
     src: "{{ elastalert_rules_file }}"
     dest: "{{ elastalert_rules_dir }}"
     remote_src: yes
+  ignore_errors: true    
 ...
