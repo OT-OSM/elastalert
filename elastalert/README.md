@@ -31,6 +31,8 @@ elastalert_service_group_name: "elastalert"
 elastalert_data_dir: "/opt"
 installation_dir: "/opt"
 elastalert_version: "0.2.1"
+elastalert_rules_dir: "/opt/elastalert/rules"
+elastalert_rules_file: "/home/ubuntu/example-rule.yml"
 ```
 
 Example Playbook
