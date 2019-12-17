@@ -1,5 +1,5 @@
 ---
-- name: Dependancies of elastalert
+- name: Installing dependencies of elastalert
   package:
     name: "{{ item }}"
   with_items:
@@ -9,19 +9,24 @@
     - libffi-dev
     - libssl-dev
 
-- name: Install the setuptools 11.3 module using pip3
+- name: Install setuptools 11.3 module using pip3
   pip:
     name:
       - setuptools>=11.3
     executable: pip3
 
-- name: Setting internal variables for convinience
-  set_fact:
-    base_url: "https://github.com/Yelp/elastalert/archive/v{{ elastalert_version }}.tar.gz"
+- name: Installing PyYAML dependency
+  shell: "pip3 install -U PyYAML"
+  args:
+    executable: /bin/bash
+
+#- name: Setting internal variables for convinience
+#  set_fact:
+#    base_url: "https://github.com/Yelp/elastalert/archive/v{{ elastalert_version }}.tar.gz"
 
 - name: "Unarchiving elastalert {{ elastalert_version }}"
   unarchive:
-    src: "{{ base_url }}"
+    src: "https://github.com/Yelp/elastalert/archive/v{{ elastalert_version }}.tar.gz"
     dest: "{{ installation_dir }}"
     remote_src: yes
   register: task_result
@@ -43,31 +48,26 @@
 
 - name: Renaming elastalert downloaded directory for ease of use
   copy:
-   src: "{{ installation_dir }}/elastalert-{{ elastalert_version }}/"
-   dest: "{{ installation_dir }}/elastalert"
-   owner: "{{ elastalert_service_user_name }}"
-   group: "{{ elastalert_service_group_name }}"
-   remote_src: yes
+    src: "{{ installation_dir }}/elastalert-{{ elastalert_version }}/"
+    dest: "{{ installation_dir }}/elastalert"
+    owner: "{{ elastalert_service_user_name }}"
+    group: "{{ elastalert_service_group_name }}"
+    remote_src: yes
  
-- name: Permission on elastalert directory
+- name: Setting ownership of elastalert configuration directory
   file:
     path: "{{ elastalert_data_dir }}"
     state: directory
     recurse: yes
     owner: "{{ elastalert_service_user_name }}"
     group: "{{ elastalert_service_group_name }}"
-    
-- name: Run setup python script
-  shell: "pip3 install -U PyYAML"
-  args:
-    executable: /bin/bash
 
-- name: Run setup python script
+- name: Installation of elastalert 
   shell: "python3 /opt/elastalert/setup.py install"
   args:
     executable: /bin/bash
 
-- name: All specified module installation
+- name: Installation modules from local path
   shell: "pip3 install -e /opt/elastalert/."
   args:
     executable: /bin/bash

@@ -1,14 +1,14 @@
 ---
+- name: elastalert systemd template
+  template:
+     src: elastalert-systemd.service.j2
+     dest: /etc/systemd/system/elastalert.service
+     owner: "{{ elastalert_service_user_name }}"
+     mode: 0755
+
 - name: config template
   template:
      src: config.yaml.j2
      dest: /opt/elastalert/config.yaml
   notify:
     - restart elastalert
-      
-- name: elastalert systemd template 
-  template:
-     src: elastalert-systemd.service.j2
-     dest: /etc/systemd/system/elastalert.service
-     owner: "{{ elastalert_service_user_name }}"
-     mode: 0755
