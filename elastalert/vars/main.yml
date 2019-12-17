@@ -4,6 +4,6 @@
 host_name: localhost
 port: 9300
 rule_dir: rules
-
 installation_dir: "/opt"
-
+elastalert_rules_dir: "/opt/elastalert/rules"
+elastalert_rules_file: "/home/ubuntu/example-rule.yml"
