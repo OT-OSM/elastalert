@@ -1,7 +1,7 @@
 Role Name
 =========
 ```
-This role to install elastAlert repository with the most recent changes/updates. 
+This role to install and setup elastalert along with relative alert configuration defined by user.
 ```
 
 Supported OS
