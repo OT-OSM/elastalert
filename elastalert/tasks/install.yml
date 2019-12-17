@@ -71,4 +71,10 @@
   shell: "pip3 install -e /opt/elastalert/."
   args:
     executable: /bin/bash
+    
+- name: Copying rules into elastalert rules directory
+  copy:
+    src: "{{ elastalert_rules_file }}"
+    dest: "{{ elastalert_rules_dir }}"
+    remote_src: yes
 ...
