@@ -20,10 +20,6 @@
   args:
     executable: /bin/bash
 
-#- name: Setting internal variables for convinience
-#  set_fact:
-#    base_url: "https://github.com/Yelp/elastalert/archive/v{{ elastalert_version }}.tar.gz"
-
 - name: "Unarchiving elastalert {{ elastalert_version }}"
   unarchive:
     src: "https://github.com/Yelp/elastalert/archive/v{{ elastalert_version }}.tar.gz"
