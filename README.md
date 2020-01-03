@@ -39,7 +39,7 @@ Example Playbook
 ----------------
 ```
 ---
-- name: It will automate elastalert setup
+- name: It will automate elastalert setup.
   hosts: server
   become_user: root
   gather_facts: true
