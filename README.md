@@ -38,10 +38,15 @@ elastalert_rules_file: "/home/ubuntu/example-rule.yml"
 Example Playbook
 ----------------
 ```
-- hosts: localhost
-  remote_user: root
+---
+- name: It will automate elastalert setup
+  hosts: server
+  become_user: root
+  gather_facts: true
   roles:
-    - elastalert
+    - role: osm_elastalert
+...
+
 ```
 
 Author Information
