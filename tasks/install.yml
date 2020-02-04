@@ -9,11 +9,24 @@
     - libffi-dev
     - libssl-dev
 
-- name: Install setuptools 11.3 module using pip3
+- name: Installing setuptools 11.3 module using pip3
   pip:
     name:
       - setuptools>=11.3
     executable: pip3
+  when: ansible_distribution_version == "18.04"
+      
+- name: Installing setuptools with dependencies using pip3
+  pip:
+    name:
+      - "{{ item }}"
+    executable: pip3
+  with_items: 
+    - TheHive4py
+    - mock
+    - configparser
+    - setuptools
+  when: ansible_distribution_version == "16.04" 
 
 - name: Installing PyYAML dependency
   shell: "pip3 install -U PyYAML"
@@ -48,8 +61,12 @@
     dest: "{{ installation_dir }}/elastalert"
     owner: "{{ elastalert_service_user_name }}"
     group: "{{ elastalert_service_group_name }}"
-    remote_src: yes
- 
+
+- name: Remove previous elastalert downloaded directory
+  file:
+    path: "{{ installation_dir }}/elastalert-{{ elastalert_version }}/"
+    state: absent
+
 - name: Setting ownership of elastalert configuration directory
   file:
     path: "{{ elastalert_data_dir }}"
@@ -58,10 +75,15 @@
     owner: "{{ elastalert_service_user_name }}"
     group: "{{ elastalert_service_group_name }}"
 
+- name: Install setuptools 20.10.1 module using pip3
+  pip:
+    name:
+      - setuptools>=20.10.1
+    executable: pip3    
+  when: ansible_distribution_version == "16.04"
+
 - name: Installation of elastalert 
-  shell: "python3 /opt/elastalert/setup.py install"
-  args:
-    executable: /bin/bash
+  shell: "sudo python3 /opt/elastalert/setup.py install"
 
 - name: Installation modules from local path
   shell: "pip3 install -e /opt/elastalert/."
