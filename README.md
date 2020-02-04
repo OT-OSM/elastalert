@@ -90,7 +90,7 @@ Future Proposed Changes
 
 References
 ----------
-- **[Guide followed 1](https://elastalert.readthedocs.io/en/latest/running_elastalert.html/)**
+- **[Guide followed 1](https://elastalert.readthedocs.io/en/latest/running_elastalert.html)**
 - **[Guide followed 2](https://www.fosslinux.com/6240/how-to-install-elastalert-with-elasticsearch-on-ubuntu.htm)**
 
 Author Information
