@@ -16,15 +16,19 @@ In this role , can attach elastalert rules files.
 
 Supported OS
 ------------
-   * Ubuntu 18
-   * Ubuntu 16
+   * Ubuntu bionic
+   * Ubuntu xenial
 
-Dependencies
+Requirements
 ------------
   * python3
   * python-pip3
   * PyYAML
   * setuptools
+
+Dependencies
+------------
+  * Elasticsearch
 
 Directory Layout
 ----------------
