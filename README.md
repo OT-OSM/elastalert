@@ -2,6 +2,13 @@ Ansible Role: ElastAlert
 ========================
 This role to install and setup elastalert along with relative alert configuration defined by user.
 
+Version History
+---------------
+
+|**Date**| **Version**| **Description**| **Changed By** |
+|----------|---------|---------------|-----------------|
+|**June '25** | v.1.0 | Initial Draft | Ashutosh Mishra |
+
 Salient Features
 ----------------
 - This Role automates the Alert setup using ElastAlert.

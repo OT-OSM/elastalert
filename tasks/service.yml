@@ -11,4 +11,4 @@
      src: config.yaml.j2
      dest: /opt/elastalert/config.yaml
   notify:
-    - restart elastalert
+     - restart elastalert

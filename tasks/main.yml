@@ -6,4 +6,3 @@
 
 - name: Managing the service of elastalert in target machibe
   include_tasks: service.yml
-
