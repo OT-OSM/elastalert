@@ -7,7 +7,7 @@ Version History
 
 |**Date**| **Version**| **Description**| **Changed By** |
 |----------|---------|---------------|-----------------|
-|**June '25** | v.1.0 | Initial Draft | Ashutosh Mishra |
+|**27 June 2020** | v0.0.1 | Initial Draft | Ashutosh Mishra |
 
 Salient Features
 ----------------
