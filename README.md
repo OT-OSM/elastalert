@@ -61,8 +61,8 @@ Role Variables
 
 |**Variables**| **Default Values**| **Description**| **Type**|
 |----------|---------|---------------|-----------|
-| host_name | localhost | ElastAlert host Name | Mandatory |
-| port | 9300 | The port on which the elastalert server will work | Mandatory |
+| host_name | localhost | Elasticsearch host | Mandatory |
+| port | 9300 | Elasticsearch port | Mandatory |
 | rule_dir | rules | ElastAlert custom directory name | Mandatory |
 | elastalert_service_user_name | elastalert | ElastAlert user name | Mandatory |
 | elastalert_service_group_name | elastalert | ElastAlert group name | Mandatory |
@@ -71,6 +71,8 @@ Role Variables
 | elastalert_version | 0.2.1 | ElastAlert version | Mandatory |
 | elastalert_rules_dir | /opt/elastalert/rules | Directory for ElastAlert | Mandatory |
 | elastalert_rules_file | /home/ubuntu/example-rule.yml | Rule file for elastalert  | Mandatory |
+| es_user | elastic | elasticsearch username | Manadatory if there is authentication in ES |
+| es_pass | elastic | elasticsearch password | Manadatory if there is authentication in ES |
 
 Example Playbook
 ----------------
