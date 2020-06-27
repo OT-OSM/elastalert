@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  author: Ashutosh Mishra
+  description: Elastalert ansible role
+  company: OpsTree Solutions
+
+  license: license (GPLv2)
+
+  min_ansible_version: 2.9
+  platforms:
+    - name: Ubuntu
+      versions:
+        - bionic
+        - xenial
+
+  galaxy_tags:
+    - elastalert
+    - elasticsearch
+    - logstash
+    - kibana
+    - filebeat
+
+dependencies: []

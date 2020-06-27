@@ -1,0 +1,15 @@
+[Unit]
+Description=ElastAlert - Easy & Flexible Alerting With Elasticsearch
+Documentation=https://elastalert.readthedocs.io
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+Type=simple
+User=elastalert
+Group=elastalert
+WorkingDirectory=/opt/elastalert/
+ExecStart=/usr/local/bin/elastalert
+
+[Install]
+WantedBy=multi-user.target
