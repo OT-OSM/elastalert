@@ -72,7 +72,7 @@ Role Variables
 | elastalert_rules_dir | /opt/elastalert/rules | Directory for ElastAlert | Mandatory |
 | elastalert_rules_file | /home/ubuntu/example-rule.yml | Rule file for elastalert  | Mandatory |
 | es_user | elastic | elasticsearch username | Manadatory if there is authentication in ES |
-| es_pass | elastic | elasticsearch password | Manadatory if there is authentication in ES |
+| es_pass | password | elasticsearch password | Manadatory if there is authentication in ES |
 
 Example Playbook
 ----------------
