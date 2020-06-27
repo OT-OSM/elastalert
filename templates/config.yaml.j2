@@ -10,13 +10,11 @@ es_host: {{ host_name }}
 
 es_port: {{ port }}
 
-es_username: 
-es_password: 
+es_username: {{ es_user }}  
+es_password: {{ es_pass }}
 
 writeback_index: elastalert_status
 writeback_alias: elastalert_alerts
 
 alert_time_limit:
   days: 2
-
-
