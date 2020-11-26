@@ -6,4 +6,5 @@ elastalert_service_user_name: "elastalert"
 elastalert_service_group_name: "elastalert"
 elastalert_data_dir: "/opt"
 elastalert_version: "0.2.1"
+verbose: false
 ...

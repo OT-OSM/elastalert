@@ -1,3 +1,4 @@
+#jinja2: trim_blocks:False
 [Unit]
 Description=ElastAlert - Easy & Flexible Alerting With Elasticsearch
 Documentation=https://elastalert.readthedocs.io
@@ -9,7 +10,7 @@ Type=simple
 User=elastalert
 Group=elastalert
 WorkingDirectory=/opt/elastalert/
-ExecStart=/usr/local/bin/elastalert
+ExecStart=/usr/local/bin/elastalert {% if verbose -%} --verbose {%- endif %}
 
 [Install]
 WantedBy=multi-user.target
