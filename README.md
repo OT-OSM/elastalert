@@ -1,3 +1,6 @@
+### MODIFIED VERSION OF https://galaxy.ansible.com/opstree_devops/elastalert BY Ashutosh Mishra. Modified by Paul Belloc
+
+
 Ansible Role: ElastAlert
 ========================
 This role to install and setup elastalert along with relative alert configuration defined by user.

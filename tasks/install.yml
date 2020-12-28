@@ -1,10 +1,12 @@
 ---
 - name: Update cache...
+  become: yes
   apt:
     update_cache: true
     cache_valid_time: 86400
 
 - name: Installing dependencies of elastalert
+  become: yes
   package:
     name: "{{ item }}"
   with_items:
@@ -15,6 +17,7 @@
     - libssl-dev
 
 - name: Installing setuptools 11.3 module using pip3
+  become: yes
   pip:
     name:
       - setuptools>=11.3
@@ -22,6 +25,7 @@
   when: ansible_distribution_version == "18.04"
 
 - name: Installing setuptools with dependencies using pip3
+  become: yes
   pip:
     name:
       - "{{ item }}"
@@ -34,12 +38,14 @@
   when: ansible_distribution_version == "16.04"
 
 - name: Installing PyYAML dependency
+  become: yes
   command: "pip3 install -U PyYAML"
   changed_when: true
   args:
     executable: /bin/bash
 
 - name: "Unarchiving elastalert {{ elastalert_version }}"
+  become: yes
   unarchive:
     src: "https://github.com/Yelp/elastalert/archive/v{{ elastalert_version }}.tar.gz"
     dest: "{{ installation_dir }}"
@@ -50,11 +56,13 @@
   delay: 5
 
 - name: Creating system group for elastalert
+  become: yes
   group:
     name: "{{ elastalert_service_group_name }}"
     state: present
 
 - name: Creating system user for elastalert
+  become: yes
   user:
     name: "{{ elastalert_service_user_name }}"
     group: "{{ elastalert_service_group_name }}"
@@ -62,6 +70,7 @@
     state: present
 
 - name: Renaming elastalert downloaded directory for ease of use
+  become: yes
   copy:
     src: "{{ installation_dir }}/elastalert-{{ elastalert_version }}/"
     dest: "{{ installation_dir }}/elastalert"
@@ -70,11 +79,13 @@
     remote_src: true
 
 - name: Remove previous elastalert downloaded directory
+  become: yes
   file:
     path: "{{ installation_dir }}/elastalert-{{ elastalert_version }}/"
     state: absent
 
 - name: Setting ownership of elastalert configuration directory
+  become: yes
   file:
     path: "{{ elastalert_data_dir }}"
     state: directory
@@ -83,6 +94,7 @@
     group: "{{ elastalert_service_group_name }}"
 
 - name: Install setuptools 20.10.1 module using pip3
+  become: yes
   pip:
     name:
       - setuptools>=20.10.1
@@ -90,19 +102,52 @@
   when: ansible_distribution_version == "16.04"
 
 - name: Installation of elastalert
+  become: yes
   command: "python3 /opt/elastalert/setup.py install"
   changed_when: true
 
 - name: Installation modules from local path
+  become: yes
   command: "pip3 install -e /opt/elastalert/."
   changed_when: true
   args:
     executable: /bin/bash
 
+- name: get local rules
+  delegate_to: localhost
+  shell: "ls {{ elastalert_upload_local_rules_dir }}"
+  changed_when: false
+  register: elastalert_local_rules
+  tags: elastalert-rules
+
+- name: get loaded rules
+  shell: "ls {{ elastalert_rules_dir }}"
+  changed_when: false
+  register: elastalert_loaded_rules
+  tags: elastalert-rules
+
+- name: rm old rules
+  become: yes
+  file:
+    path: "{{elastalert_rules_dir}}/{{ item }}"
+    state: absent
+  with_items: "{{elastalert_loaded_rules.stdout_lines}}"
+  when: item not in elastalert_local_rules.stdout_lines
+  notify:
+    - restart elastalert
+  tags:
+    - elastalert-rules
+
 - name: Copying rules into elastalert rules directory
+  become: yes
   copy:
-    src: "{{ elastalert_rules_file }}"
+    src: "{{ item }}"
     dest: "{{ elastalert_rules_dir }}"
-    remote_src: true
-  ignore_errors: true
+  with_fileglob:
+    - "{{ elastalert_upload_local_rules_dir }}/*"
+  when:
+    - elastalert_upload_local_rules_dir is defined
+  notify:
+    - restart elastalert
+  tags: elastalert-rules
 ...
