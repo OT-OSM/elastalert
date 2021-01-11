@@ -1,3 +1,0 @@
----
-installation_dir: "/opt"
-elastalert_rules_dir: /opt/elastalert/rules

@@ -126,7 +126,7 @@
   register: elastalert_loaded_rules
   tags: elastalert-rules
 
-- name: rm old rules
+- name: remove old rules
   become: yes
   file:
     path: "{{elastalert_rules_dir}}/{{ item }}"
@@ -135,6 +135,8 @@
   when: item not in elastalert_local_rules.stdout_lines
   notify:
     - restart elastalert
+  when:
+    - elastalert_delete_rules_not_in_elastalert_upload_local_rules_dir
   tags:
     - elastalert-rules
 
