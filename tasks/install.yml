@@ -118,12 +118,16 @@
   shell: "ls {{ elastalert_upload_local_rules_dir }}"
   changed_when: false
   register: elastalert_local_rules
+  when:
+    - elastalert_upload_local_rules_dir != False
   tags: elastalert-rules
 
 - name: get loaded rules
   shell: "ls {{ elastalert_rules_dir }}"
   changed_when: false
   register: elastalert_loaded_rules
+  when:
+    - elastalert_upload_local_rules_dir != False
   tags: elastalert-rules
 
 - name: remove old rules
