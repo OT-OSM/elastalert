@@ -130,16 +130,24 @@
     - elastalert_upload_local_rules_dir != False
   tags: elastalert-rules
 
+- debug:
+    var: elastalert_local_rules
+  tags: always
+
+- debug:
+    var: elastalert_loaded_rules
+  tags: always
+
 - name: remove old rules
   become: yes
   file:
     path: "{{elastalert_rules_dir}}/{{ item }}"
     state: absent
   with_items: "{{elastalert_loaded_rules.stdout_lines}}"
-  when: item not in elastalert_local_rules.stdout_lines
   notify:
     - restart elastalert
   when:
+    - item not in elastalert_local_rules.stdout_lines
     - elastalert_delete_rules_not_in_elastalert_upload_local_rules_dir|bool
     - elastalert_upload_local_rules_dir != False
   tags:
