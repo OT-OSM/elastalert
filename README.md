@@ -84,17 +84,46 @@ Role Variables
 
 Example Playbook
 ----------------
+Simple example
+
 ```
 ---
 - name: It will automate ElastAlert setup
-  hosts: server
-  become: true
+  hosts: elastalert
   roles:
     - role: osm_elastalert
+        es_pass: password
+        host_name: "your elasticsearch ip or domain"
 ...
+```
 
+With HTTP elasticsearch auth + SSL + specific local elastalert rules dir + slack webhook used in rules file
+
+```
+---
+- name: It will automate ElastAlert setup
+  hosts: elastalert
+  roles:
+    - role: osm_elastalert
+        es_pass: password
+        use_ssl: True
+        client_cert: /opt/elastalert/clientcert.cer
+        client_key: /opt/elastalert/clientcert.key
+        slack_webhook_url: "https://hooks.slack.com/services/your_webhook_url"
+        host_name: "your elasticsearch ip or domain"
+        elastalert_upload_local_rules_dir: files/elastalert/cluster_one_elastalert_rules/
+...
+```
+
+Run all tasks
+
+```
 $  ansible-playbook site.yml -i inventory
+```
 
+Only run tasks related to uploading and deleting rules to sync elastalert rules directory's content with the local ansible rules directory's  content
+```
+$  ansible-playbook site.yml --tags elastalert,elastalert-rules
 ```
 
 Inventory
