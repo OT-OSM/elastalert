@@ -1,13 +1,19 @@
 ---
 host_name: "localhost"
 es_port: "9200"
-elastalert_service_user_name: "elastalert"
-elastalert_service_group_name: "elastalert"
-elastalert_data_dir: "/opt"
-verify_certs: False
-elastalert_version: "0.2.4"
-elatalert_upload_local_rules_dir: "files/elastalert/rules"
-elastalert_rules_dir: "/opt/elastalert/rules"
 es_user: elastic
 es_pass: password
+elastalert_service_user_name: "elastalert"
+elastalert_service_group_name: "elastalert"
+
+elastalert_data_dir: "/opt"
+elastalert_version: "0.2.4"
+
+elatalert_upload_local_rules_dir: "files/elastalert/rules"
+elastalert_rules_dir: "/opt/elastalert/rules"
+
+verify_certs: False
+use_ssl: False
+client_cert: "/opt/elastalert/clientcert.cer"
+client_key: "/opt/elastalert/clientcert.key"
 ...
