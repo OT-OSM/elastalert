@@ -11,7 +11,7 @@ Version History
 |**Date**| **Version**| **Description**| **Changed By** |
 |----------|---------|---------------|-----------------|
 |**27 June 2020** | v0.0.1 | Initial Draft | Ashutosh Mishra |
-|**11 January 2021** | v0.0.2 | Rule management update | Paul Belloc @NanoPish |
+|**11 January 2021** | v0.0.2 | Rule management update | Paul Belloc @NanoPish for https://perfmaker.com/ |
 
 Salient Features
 ----------------
