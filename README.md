@@ -1,4 +1,4 @@
-### MODIFIED VERSION OF https://galaxy.ansible.com/opstree_devops/elastalert BY Ashutosh Mishra. Modified by Paul Belloc
+### https://galaxy.ansible.com/opstree_devops/elastalert BY Ashutosh Mishra.
 
 
 Ansible Role: ElastAlert
@@ -11,6 +11,7 @@ Version History
 |**Date**| **Version**| **Description**| **Changed By** |
 |----------|---------|---------------|-----------------|
 |**27 June 2020** | v0.0.1 | Initial Draft | Ashutosh Mishra |
+|**11 January 2021** | v0.0.2 | Rule management update | Paul Belloc @NanoPish |
 
 Salient Features
 ----------------
@@ -65,15 +66,14 @@ Role Variables
 |**Variables**| **Default Values**| **Description**| **Type**|
 |----------|---------|---------------|-----------|
 | host_name | localhost | Elasticsearch host | Mandatory |
-| port | 9300 | Elasticsearch port | Mandatory |
-| rule_dir | rules | ElastAlert custom directory name | Mandatory |
+| es_port | 9200 | Elasticsearch port | Mandatory |
+| elastalert_upload_local_rules_dir | rules | Ansible machine uploads rules in this directory | Optional |
 | elastalert_service_user_name | elastalert | ElastAlert user name | Mandatory |
 | elastalert_service_group_name | elastalert | ElastAlert group name | Mandatory |
 | elastalert_data_dir | /opt | Data directory  | Mandatory |
 | installation_dir | /opt | ElastAlert installation directory | Mandatory |
 | elastalert_version | 0.2.1 | ElastAlert version | Mandatory |
-| elastalert_rules_dir | /opt/elastalert/rules | Directory for ElastAlert | Mandatory |
-| elastalert_rules_file | /home/ubuntu/example-rule.yml | Rule file for elastalert  | Mandatory |
+| elastalert_rules_dir | /opt/elastalert/rules | Directory for ElastAlert rules | Mandatory |
 | es_user | elastic | elasticsearch username | Manadatory if there is authentication in ES |
 | es_pass | password | elasticsearch password | Manadatory if there is authentication in ES |
 
