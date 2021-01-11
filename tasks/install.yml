@@ -136,8 +136,8 @@
   notify:
     - restart elastalert
   when:
-    - elastalert_delete_rules_not_in_elastalert_upload_local_rules_dir
-    - elastalert_upload_local_rules_dir
+    - elastalert_delete_rules_not_in_elastalert_upload_local_rules_dir|bool
+    - elastalert_upload_local_rules_dir != False
   tags:
     - elastalert-rules
 
@@ -149,7 +149,7 @@
   with_fileglob:
     - "{{ elastalert_upload_local_rules_dir }}/*"
   when:
-    - elastalert_upload_local_rules_dir
+    - elastalert_upload_local_rules_dir != False
   notify:
     - restart elastalert
   tags: elastalert-rules

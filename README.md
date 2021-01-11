@@ -68,7 +68,7 @@ Role Variables
 | host_name | localhost | Elasticsearch host | Mandatory |
 | es_port | 9200 | Elasticsearch port | Mandatory |
 | elastalert_rules_dir | /opt/elastalert/rules | Directory for ElastAlert rules | Mandatory |
-| elastalert_upload_local_rules_dir | files/elastalert/rules | Ansible machine uploads rules in this directory | Mandatory if you want the role to upload rules from elastalert_upload_local_rules_dir on ansible machine to elastalert_rules_dir in elastalert machine |
+| elastalert_upload_local_rules_dir | files/elastalert/rules | Ansible machine uploads rules in this directory. Use False if you want to upload manually | Mandatory if you want the role to upload rules from elastalert_upload_local_rules_dir on ansible machine to elastalert_rules_dir in elastalert machine |
 | elastalert_delete_rules_not_in_elastalert_upload_local_rules_dir | yes | Will delete rules not present in elastalert_upload_local_rules_dir | Mandatory if you want to delete rules on elastalert machine that are not in elastalert_upload_local_rules_dir on ansible machine|
 | elastalert_service_user_name | elastalert | ElastAlert user name | Mandatory |
 | elastalert_service_group_name | elastalert | ElastAlert group name | Mandatory |
