@@ -1,7 +1,27 @@
 ---
 - name: restart elastalert
+  become: yes
   systemd:
      name: elastalert
      state: restarted
      daemon_reload: true
-...
+  tags:
+    - elastalert
+
+- name: pause
+  pause:
+    seconds: 1
+  listen:
+    - restart elastalert
+    
+- name: check elastalert service status and fail if not running
+  become: yes
+  command:
+    cmd: service elastalert status
+    warn: false
+  register: elastalert_status
+  failed_when: "elastalert_status.rc != 0"
+  changed_when: false
+  listen: restart elastalert
+  tags:
+    - elastalert

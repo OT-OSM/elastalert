@@ -1,9 +1,3 @@
 ---
-host_name: localhost
-port: 9300
-rule_dir: rules
-es_user: elastic
-es_pass: password
 installation_dir: "/opt"
-elastalert_rules_dir: "/opt/elastalert/rules"
-elastalert_rules_file: "/home/ubuntu/example-rule.yml"
+elastalert_rules_dir: /opt/elastalert/rules

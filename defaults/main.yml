@@ -1,10 +1,20 @@
 ---
 host_name: "localhost"
-port: "9300"
-rule_dir: "rules"
+es_port: "9200"
+es_user: elastic
+es_pass: password
 elastalert_service_user_name: "elastalert"
 elastalert_service_group_name: "elastalert"
+
 elastalert_data_dir: "/opt"
-elastalert_version: "0.2.1"
-verbose: false
+elastalert_version: "0.2.4"
+
+elatalert_upload_local_rules_dir: "files/elastalert/rules"
+elastalert_delete_rules_not_in_elastalert_upload_local_rules_dir: yes
+elastalert_rules_dir: "/opt/elastalert/rules"
+
+verify_certs: False
+use_ssl: False
+client_cert: "/opt/elastalert/clientcert.cer"
+client_key: "/opt/elastalert/clientcert.key"
 ...

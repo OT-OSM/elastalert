@@ -1,7 +1,9 @@
 ---
 - name: Installing pre-requisities & packages on target Machine
   include_tasks: install.yml
+  tags: elastalert
 
-- name: Managing the service of elastalert in target machibe
+- name: Managing the service of elastalert in target machine
   include_tasks: service.yml
+  tags: elastalert
 ...
