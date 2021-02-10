@@ -18,3 +18,11 @@
   notify:
      - restart elastalert
 
+- name: Setting up Elasticsearch
+  command: elastalert-create-index --config /opt/elastalert/config.yaml
+  changed_when: true
+
+- name: Make sure Elastalert is started
+  service:
+    name: elastalert
+    state: started

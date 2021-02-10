@@ -50,6 +50,7 @@
     src: "https://github.com/Yelp/elastalert/archive/v{{ elastalert_version }}.tar.gz"
     dest: "{{ installation_dir }}"
     remote_src: true
+    creates: "{{ installation_dir }}/elastalert-{{ elastalert_version }}/setup.py"
   register: task_result
   until: task_result is succeeded
   retries: 5
@@ -69,20 +70,14 @@
     system: true
     state: present
 
-- name: Renaming elastalert downloaded directory for ease of use
+- name: Symlinking elastalert downloaded directory for ease of use
   become: yes
-  copy:
+  file:
     src: "{{ installation_dir }}/elastalert-{{ elastalert_version }}/"
     dest: "{{ installation_dir }}/elastalert"
     owner: "{{ elastalert_service_user_name }}"
     group: "{{ elastalert_service_group_name }}"
-    remote_src: true
-
-- name: Remove previous elastalert downloaded directory
-  become: yes
-  file:
-    path: "{{ installation_dir }}/elastalert-{{ elastalert_version }}/"
-    state: absent
+    state: link
 
 - name: Setting ownership of elastalert configuration directory
   become: yes
@@ -112,6 +107,13 @@
   changed_when: true
   args:
     executable: /bin/bash
+
+- name: Make sure directory for rules exists
+  file:
+    path: "{{ elastalert_rules_dir }}"
+    state: directory
+    owner: "{{ elastalert_service_user_name }}"
+    group: "{{ elastalert_service_group_name }}"
 
 - name: get local rules
   delegate_to: localhost
@@ -147,7 +149,7 @@
   notify:
     - restart elastalert
   when:
-    - item not in elastalert_local_rules.stdout_lines
+    - item not in elastalert_local_rules.stdout_lines | default([])
     - elastalert_delete_rules_not_in_elastalert_upload_local_rules_dir|bool
     - elastalert_upload_local_rules_dir != False
   tags:
