@@ -15,6 +15,7 @@
   template:
      src: config.yaml.j2
      dest: /opt/elastalert/config.yaml
+     backup: yes
   notify:
      - restart elastalert
 

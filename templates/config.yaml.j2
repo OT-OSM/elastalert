@@ -7,13 +7,13 @@ buffer_time:
   minutes: 15
 
 realert:
-  minutes: 10
+  {{ realert }}
 
 es_host: {{ host_name }}
 
 es_port: {{ es_port }}
 
-es_username: {{ es_user }}  
+es_username: {{ es_user }}
 es_password: {{ es_pass }}
 
 writeback_index: elastalert_status
@@ -22,8 +22,10 @@ writeback_alias: elastalert_alerts
 alert_time_limit:
   days: 2
 
+{% if use_ssl %}
 use_ssl: {{ use_ssl }}
 client_cert: {{ client_cert }}
 client_key: {{ client_key }}
 ca_certs: {{ ca_certs is defined and ca_certs != None | ternary (ca_certs, None) }}
 verify_certs: {{ verify_certs }}
+{% endif %}
