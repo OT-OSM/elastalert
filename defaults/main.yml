@@ -17,4 +17,6 @@ verify_certs: False
 use_ssl: False
 client_cert: "/opt/elastalert/clientcert.cer"
 client_key: "/opt/elastalert/clientcert.key"
+
+realert: 'minutes: 1'
 ...
