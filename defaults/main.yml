@@ -19,4 +19,5 @@ client_cert: "/opt/elastalert/clientcert.cer"
 client_key: "/opt/elastalert/clientcert.key"
 
 realert: 'minutes: 1'
+buffer_time: 'minutes: 15'
 ...
